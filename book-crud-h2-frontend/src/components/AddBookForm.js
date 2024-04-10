@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-
-
 const AddBookForm = ({ onAdd }) => {
   const [formData, setFormData] = useState({
     title: '',
@@ -18,6 +16,7 @@ const AddBookForm = ({ onAdd }) => {
     }));
   };
 
+  
   const handleSubmit = async e => {
     e.preventDefault();
     try {
@@ -28,6 +27,7 @@ const AddBookForm = ({ onAdd }) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
+      
       });
       if (response.ok) {
         // If the request is successful, parse the response body as JSON
@@ -94,6 +94,9 @@ const AddBookForm = ({ onAdd }) => {
       </form>
     </div>
   );
+
+  
+
 };
 
 export default AddBookForm;
