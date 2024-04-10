@@ -1,36 +1,47 @@
 
+import BookList from "./components/BookList";
+import AddBookForm from "./components/AddBookForm";
+import BookDetails from "./components/BookDetails";
+import EditBookForm from "./components/EditBookForm";
+import React, { useState } from 'react';
 import './App.css';
-import React, { useState, useEffect } from 'react';
 
 
-function App() {
-  
-   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    fetchMessage();
-  }, []);
+const App = () => {
+  const [selectedBook, setSelectedBook] = useState(null);
 
-  const fetchMessage = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/api/books');
-      if (!response.ok) {
-        throw new Error('Failed to fetch');
-      }
-      const data = await response.json();
-      setMessage(data);
-    } catch (error) {
-      console.error('Error fetching message:', error);
-    }
+  const handleBookClick = book => {
+    setSelectedBook(book);
+  };
+
+  const handleAddBook = formData => {
+    // Send a POST request to add the new book to the database
+    console.log('Adding book:', formData);
+    // Update the book list after adding the new book
+  };
+
+  const handleUpdateBook = formData => {
+    // Send a PUT request to update the existing book in the database
+    console.log('Updating book:', formData);
+    // Update the book list after updating the book
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        
-      </header>
+    <header className="App-header">
+    <div>
+      <BookList onBookClick={handleBookClick} />
+      {selectedBook ? (
+        <div>
+          <BookDetails book={selectedBook} />
+          <EditBookForm book={selectedBook} onUpdate={handleUpdateBook} />
+        </div>
+      ) : (
+        <AddBookForm onAdd={handleAddBook} />
+      )}
     </div>
+    </header>
   );
-}
+};
 
 export default App;

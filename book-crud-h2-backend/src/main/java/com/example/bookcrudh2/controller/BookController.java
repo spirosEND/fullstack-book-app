@@ -45,6 +45,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         
